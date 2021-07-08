@@ -1,0 +1,25 @@
+:root {
+  // colors
+  --color-lightgrey: #E3E3E3;
+  --color-grey: #bababa;
+  --color-green: #19A56B;
+  --color-white: #FFFFFF;
+  --color-beige: #FFF9F2;
+
+  // font
+  --font-primary: 'Montserrat', 'Open Sans', 'Helvetica Neue', 'Arial', sans-serif;
+  --font-size-root: 20px;
+  --font-weight-light: 400;
+
+  // shadows
+  --shadow-primary: 0 2px 18px 0 rgba(0,0,0,0.12);
+
+  // border
+  --border-radius-standard: 10px;
+}
+
+$breakpoints: (
+  'small':  767px,
+  'medium': 992px,
+  'large':  1200px
+) !default;
