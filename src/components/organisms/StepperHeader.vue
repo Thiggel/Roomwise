@@ -2,12 +2,12 @@
   <div class="stepper-header">
     <div
         class="step-item"
-        :class="{active: cStep >= key}"
-        v-for="(step, key) in steps"
+        :class="{active: currentStep >= step.key}"
+        v-for="(step, key) in visibleSteps"
         :key="key"
     >
-      <div class="step-item-content" @click="cStep = key">
-        <div class="step-circle">{{ key }}</div>
+      <div class="step-item-content" @click="currentStep = step.key">
+        <div class="step-circle">{{ key+1 }}</div>
         <div class="step-title">{{ $t(step.intlName) }}</div>
       </div>
 
@@ -19,26 +19,32 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, watch } from "vue";
+  import { defineComponent, ref, watch, computed } from "vue";
 
   export default defineComponent({
     name: 'StepperHeader',
 
     props: {
       steps: Object,
-      currentStep: Number
+      modelValue: Number
     },
 
-    emits: [ 'changeStep' ],
+    emits: [ 'update:modelValue' ],
 
     setup(props: any, context: any): Object {
-      let cStep = ref<number>(props.currentStep)
+      let currentStep = ref<number>(props.modelValue)
 
-      watch(cStep, (newStep: number): void => {
-        context.emit('changeStep', newStep)
+      watch((): any => props.modelValue, (newValue: number): void => {
+        currentStep.value = newValue
       })
 
-      return { cStep }
+      watch(currentStep, (newStep: number): void => {
+        context.emit('update:modelValue', newStep)
+      })
+
+      const visibleSteps = computed((): Object => props.steps.filter((step: any): boolean => !step.hideInMenu))
+
+      return { currentStep, visibleSteps }
     }
 
   });
@@ -64,6 +70,7 @@
     .step-item {
       width: 100%;
       position: relative;
+      cursor: pointer;
 
       .step-item-content {
         display: flex;

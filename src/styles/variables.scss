@@ -1,21 +1,31 @@
 :root {
+  // numbers
+  --infinite: 1000px;
+
   // colors
+  --color-light-lightgrey: #F4F4F4;
   --color-lightgrey: #E3E3E3;
   --color-grey: #bababa;
+  --color-darkgrey: #030303;
   --color-green: #19A56B;
   --color-white: #FFFFFF;
   --color-beige: #FFF9F2;
+  --color-black: #000000;
+  --color-red: #EC5F5F;
 
   // font
   --font-primary: 'Montserrat', 'Open Sans', 'Helvetica Neue', 'Arial', sans-serif;
+  --font-icon: 'Line Awesome';
   --font-size-root: 20px;
   --font-weight-light: 400;
+  --font-weight-lighter: 300;
 
   // shadows
   --shadow-primary: 0 2px 18px 0 rgba(0,0,0,0.12);
 
   // border
   --border-radius-standard: 10px;
+  --border-radius-mini: 2px;
 }
 
 $breakpoints: (
