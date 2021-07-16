@@ -6,7 +6,7 @@
         v-for="(step, key) in visibleSteps"
         :key="key"
     >
-      <div class="step-item-content" @click="currentStep = step.key">
+      <div class="step-item-content">
         <div class="step-circle">{{ key+1 }}</div>
         <div class="step-title">{{ $t(step.intlName) }}</div>
       </div>
@@ -70,7 +70,6 @@
     .step-item {
       width: 100%;
       position: relative;
-      cursor: pointer;
 
       .step-item-content {
         display: flex;

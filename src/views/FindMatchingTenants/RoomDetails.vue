@@ -59,7 +59,7 @@
           @update:model-value="$emit('input')"
           @validate="validate($event, 'propertyPrice')"
           :showValidationStatus="showValidationStatus"
-          regexp="^[€]?[ ]?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2})?[ ]?[€]?$"
+          regexp="^[€]?[ ]?\d{1,5}(?:[.,]\d{3})*(?:[.,]\d{2})?[ ]?[€]?$"
       ></c-text-field>
 
       <c-text-field
@@ -70,8 +70,11 @@
           @update:model-value="$emit('input')"
           @validate="validate($event, 'propertyMoveInDate')"
           :showValidationStatus="showValidationStatus"
+          regexp="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$"
       ></c-text-field>
     </div>
+
+    <c-checkbox v-model="createListing">{{ $t('createListing') }}</c-checkbox>
   </a-stepper-step>
 </template>
 
@@ -80,10 +83,11 @@ import { useStore } from 'vuex'
 import { computed, reactive } from 'vue'
 import CTextField from "@/components/cells/cTextField.vue";
 import AStepperStep from "@/components/atoms/aStepperStep.vue";
+import CCheckbox from "@/components/cells/cCheckbox.vue";
 
 
 export default {
-  components: {AStepperStep, CTextField},
+  components: {CCheckbox, AStepperStep, CTextField},
 
   props: {
     showValidationStatus: {
@@ -127,6 +131,11 @@ export default {
       set: (value: string): void => store.commit('alterProperty', { moveInDate: value })
     })
 
+    const createListing = computed({
+      get: (): string => store.state.user.property.createListing,
+      set: (value: string): void => store.commit('alterProperty', { createListing: value })
+    })
+
     const validationStatus: any = reactive<object>({
       propertyTitle: false,
       propertyCity: false,
@@ -141,7 +150,7 @@ export default {
       context.emit('validate', Object.values(validationStatus).every(item => item))
     }
 
-    return { propertyTitle, propertyCity, propertyStreet, propertyHouseNumber, propertyPrice, propertyMoveInDate, validationStatus, validate }
+    return { createListing, propertyTitle, propertyCity, propertyStreet, propertyHouseNumber, propertyPrice, propertyMoveInDate, validationStatus, validate }
   }
 }
 </script>

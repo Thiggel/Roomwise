@@ -3,6 +3,7 @@
     <label :for="key">
       {{ title }}<i v-if="required" class="required">*</i>
     </label>
+
     <input
         class="text-field"
         :class="{placeholderRight: placeholderRight, red: showValidationStatus && !validationStatus, valid: validationStatus}"
@@ -10,8 +11,9 @@
         :name="key"
         :placeholder="placeholder"
         :required="required"
+        :type="type === 'password' ? 'password' : 'text'"
         @input="validate($event.target.value)"
-        v-if="type === 'textfield' || type === 'email'"
+        v-if="type === 'textfield' || type === 'email' || type === 'password'"
     >
     <textarea
         class="text-field"

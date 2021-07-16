@@ -1,6 +1,7 @@
 <template>
   <div class="header">
-    <img alt="Roomwise logo" src="../../assets/logo.png">
+    <img alt="Roomwise logo" class="normal" src="../../assets/logo.png">
+    <img alt="Roomwise logo" class="tiny" src="../../assets/logo-small.png">
 
     <div class="options">
       <c-locale-changer></c-locale-changer>
@@ -35,6 +36,20 @@
     img {
       max-height: 36px;
       max-width: 50%;
+
+      &.normal {
+        display: none;
+      }
+
+      @include small-mobile {
+        &.tiny {
+          display: none;
+        }
+
+        &.normal {
+          display: block;
+        }
+      }
     }
 
     .options {

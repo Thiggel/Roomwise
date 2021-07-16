@@ -57,7 +57,6 @@ export default defineComponent({
       if (!files?.length) return;
 
       files.forEach((file: File): void => {
-        console.log(file)
         formData.append("file[]", file, file.name);
       })
 

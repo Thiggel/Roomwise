@@ -1,39 +1,9 @@
 <template>
   <div class="stepper">
-    <modal-window v-if="isModalOpen" @close="isModalOpen = false">
-      <viewing-invitation
-          v-if="!modalFormSubmitted"
-          :show-validation-status="showValidationStatusInvitationForm"
-          @validate="validationStatusInvitationForm = $event"
-      ></viewing-invitation>
-      <div v-else>
-        <a-stepper-step>
-          <p>
-            <i class="lar la-check-circle"></i><br>
-            {{ $t('tenantsReceivedInvite') }}
-          </p>
-        </a-stepper-step>
-      </div>
-
-      <c-button
-          class="big"
-          :class="{disabled: !validationStatusInvitationForm}"
-          v-if="!modalFormSubmitted"
-          @click="submitInvitationForm"
-      >{{ $t('sendInvitationToTenants') }}</c-button>
-
-      <c-button
-          class="link"
-          v-if="!modalFormSubmitted"
-          @click="isModalOpen = false, currentStep = 3"
-      >{{ $t('provideMoreInfo') }}</c-button>
-
-      <c-button
-          class="big"
-          v-if="modalFormSubmitted"
-          @click="isModalOpen = false, currentStep = 0"
-      >{{ $t('backToHome') }}</c-button>
-    </modal-window>
+    <invitation-form-window
+      v-if="isModalOpen"
+      @close="closeModalWindow"
+    ></invitation-form-window>
 
     <stepper-header
         :steps="steps"
@@ -42,6 +12,13 @@
     ></stepper-header>
 
     <div class="stepper-body">
+      <a-highlighted-message
+          :type="errorMessage !== 'userAlreadyExists' ? 'error' : 'info'"
+          v-if="errorMessage.length"
+      >
+        {{ $t(errorMessage) }}
+      </a-highlighted-message>
+
       <c-button
           class="link"
           v-if="steps[currentStep].isOptional"
@@ -58,7 +35,7 @@
         <c-button
             class="big"
             v-if="currentStep === steps.length-1"
-            @click="showInvitationForm"
+            @click="isModalOpen = true"
         >{{ $t('sendInvitationToCheckedTenants') }}</c-button>
 
         <c-button
@@ -81,87 +58,36 @@
 </template>
 
 <script lang="ts">
-  import { ref, defineAsyncComponent, shallowRef, watch } from 'vue';
+  import { useStore } from 'vuex'
+  import { ref, computed } from 'vue'
+  import useStepperSteps from '@/modules/useStepperSteps'
 
-  import StepperHeader from "@/components/organisms/StepperHeader.vue";
-  import CButton from "@/components/cells/cButton.vue";
-  import ModalWindow from "@/components/organisms/ModalWindow.vue";
-  import ViewingInvitation from "@/views/FindMatchingTenants/ViewingInvitation.vue";
-  import AStepperStep from "@/components/atoms/aStepperStep.vue";
-
-  const Register = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/Register.vue")
-    // loadingComponent: undefined
-  })
-
-  const RoomDetails = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/RoomDetails.vue")
-  })
-
-  const AdditionalRoomDetails = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/AdditionalRoomDetails.vue")
-  })
-
-  const OptionalRoomDetails = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/OptionalRoomDetails.vue")
-  })
-
-  const TenantQuestions = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions.vue")
-  })
-
-  const YourIdealTenant = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/YourIdealTenant.vue")
-  })
+  import StepperHeader from "@/components/organisms/StepperHeader.vue"
+  import CButton from "@/components/cells/cButton.vue"
+  import AHighlightedMessage from "@/components/atoms/aHighlightedMessage.vue"
+  import InvitationFormWindow from "@/views/FindMatchingTenants/InvitationFormWindow.vue";
 
 
   export default {
     name: 'Home',
     components: {
-      AStepperStep,
-      ViewingInvitation,
-      ModalWindow,
+      InvitationFormWindow,
+      AHighlightedMessage,
       CButton,
       StepperHeader
     },
 
     setup(): Object {
-      const steps = shallowRef<Array<Object>>([
-        {
-          key: 0,
-          intlName: 'register',
-          component: Register
-        },
-        {
-          key: 1,
-          intlName: 'roomDetails',
-          component: RoomDetails
-        },
-        {
-          key: 2,
-          hideInMenu: true,
-          component: AdditionalRoomDetails
-        },
-        {
-          key: 3,
-          hideInMenu: true,
-          isOptional: true,
-          component: OptionalRoomDetails
-        },
-        {
-          key: 4,
-          intlName: 'tenantQuestions',
-          component: TenantQuestions
-        },
-        {
-          key: 5,
-          intlName: 'yourIdealTenant',
-          component: YourIdealTenant,
-          hideMenu: true
-        }
-      ]);
+      const store = useStore()
 
-      const currentStep = ref<number>(0)
+      const { steps, currentStep } = useStepperSteps()
+
+      const errorMessage = computed({
+        get: () => store.state.findMatchingTenants.errorMessage,
+        set: () => store.commit('changeErrorMessage', '')
+      })
+
+      const showPasswordField = computed((): boolean => store.state.findMatchingTenants.showPasswordField)
 
       const validationStatus = ref<boolean>(false)
       const showValidationStatus = ref<boolean>(false)
@@ -172,55 +98,61 @@
         return validationStatus.value
       }
 
+      function incrementStep(): void {
+        if(errorMessage.value === 'userNotLoggedIn')
+          currentStep.value = 0;
+
+        if(errorMessage.value.length) return;
+
+        currentStep.value++
+        showValidationStatus.value = false
+        validationStatus.value = false
+      }
+
+      function loginOrRegister() {
+        if(showPasswordField.value) {
+          errorMessage.value = ''
+          store.dispatch('loginUser').then(incrementStep)
+        } else {
+          errorMessage.value = ''
+          store.dispatch('createUser').then(incrementStep)
+        }
+      }
+
       function nextStep(): void {
         if(validateForm()) {
-          currentStep.value++
-          showValidationStatus.value = false
-          validationStatus.value = false
+          if(currentStep.value === 0) {
+            loginOrRegister()
+          } else if(currentStep.value > 0 && currentStep.value < 10) {
+            errorMessage.value = ''
+            if(currentStep.value >= 3) {
+              store.commit('alterProperty', { status: 'publish' })
+            }
+
+            store.dispatch('upsertRoom').then(incrementStep)
+          }
         }
       }
 
       const isModalOpen = ref<boolean>(false)
 
-      watch(isModalOpen, ():void => {
-        modalFormSubmitted.value = false
-      })
-
-      const modalFormSubmitted = ref<boolean>(false)
-
-      function showInvitationForm(): void {
-        showValidationStatusInvitationForm.value = false
-        isModalOpen.value = true
-      }
-
-      const validationStatusInvitationForm = ref<boolean>(false)
-      const showValidationStatusInvitationForm = ref<boolean>(false)
-
-      function validateInvitationForm(): boolean {
-        showValidationStatusInvitationForm.value = !validationStatusInvitationForm.value
-
-        return validationStatusInvitationForm.value
-      }
-
-      function submitInvitationForm(): void {
-        if(validateInvitationForm()) {
-          modalFormSubmitted.value = true
+      function closeModalWindow(event: any): void {
+        if(event?.currentStep !== undefined) {
+          currentStep.value = event.currentStep
         }
+
+        isModalOpen.value = false
       }
 
       return {
+        errorMessage,
         steps,
         currentStep,
         isModalOpen,
-        modalFormSubmitted,
         validationStatus,
         showValidationStatus,
         nextStep,
-        showInvitationForm,
-        validationStatusInvitationForm,
-        showValidationStatusInvitationForm,
-        validateInvitationForm,
-        submitInvitationForm
+        closeModalWindow
       }
     }
   }

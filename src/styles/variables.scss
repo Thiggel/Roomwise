@@ -6,12 +6,14 @@
   --color-light-lightgrey: #F4F4F4;
   --color-lightgrey: #E3E3E3;
   --color-grey: #bababa;
+  --color-midgrey: #777474;
   --color-darkgrey: #030303;
   --color-green: #19A56B;
   --color-white: #FFFFFF;
   --color-beige: #FFF9F2;
   --color-black: #000000;
   --color-red: #EC5F5F;
+  --color-blue: #2e4499;
 
   // font
   --font-primary: 'Montserrat', 'Open Sans', 'Helvetica Neue', 'Arial', sans-serif;
@@ -29,6 +31,7 @@
 }
 
 $breakpoints: (
+  'tiny': 540px,
   'small':  767px,
   'medium': 992px,
   'large':  1200px

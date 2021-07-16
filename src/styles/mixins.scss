@@ -11,6 +11,12 @@
   }
 }
 
+@mixin small-mobile {
+  @include respond-to('tiny') {
+    @content;
+  }
+}
+
 @mixin desktop {
   @include respond-to('small') {
     @content;

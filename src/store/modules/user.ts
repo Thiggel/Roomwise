@@ -1,3 +1,5 @@
+import axios, {AxiosResponse} from "axios";
+
 export interface PotentialTenant {
     name: string,
     picture: string,
@@ -8,8 +10,11 @@ export interface PotentialTenant {
 export default {
     state: () => ({
         email: "",
+        password: "",
 
         property: {
+            createListing: true,
+            id: undefined,
             title: "",
             city: "",
             street: "",
@@ -21,29 +26,90 @@ export default {
             extraCosts: "",
             deposit: "",
             description: "",
+            status: "draft",
 
-            idealTenant: {
-                options: ['yes', 'no', 'doesntmatter'],
-                questions: [
-                    {
-                        message: "Smoking?",
-                        value: ""
-                    },
-                    {
-                        message: "Pets?",
-                        value: ""
-                    },
-                    {
-                        message: "Can he be loud in the evenings?",
-                        value: ""
-                    },
-                ]
-            },
+            idealTenant: [
+                {
+                    text: 'tickDescribesNeighbourhoodBest',
+                    options: [
+                        'studentNeighbourhood',
+                        'youngFamilies',
+                        'fullTimeWorkers',
+                        'pensioners'
+                    ],
+                    answers: []
+                },
+                {
+                    text: 'isTenantAllowedCraftWork',
+                    options: [
+                        'preInstalledFurnitureAllowed',
+                        'wallsAllowedPainted',
+                        'tenantEncouragedFixThemselves',
+                        'majorChangesAllowed'
+                    ],
+                    answers: []
+                },
+                {
+                    text: 'whoIsAllowedLive',
+                    options: [
+                        'everyone',
+                        'onlyGirls',
+                        'onlyBoys',
+                        'internationals',
+                        'dutchPeople',
+                        'postStudying',
+                        'couples',
+                        'preferWithJob'
+                    ],
+                    answers: []
+                },
+                {
+                    text: 'canHavePet',
+                    options: [
+                        'yes',
+                        'no',
+                        'doesntmatter'
+                    ],
+                    answers: []
+                },
+                {
+                    text: 'preferNonSmoker',
+                    options: [
+                        'yes',
+                        'doesntmatter'
+                    ],
+                    answers: []
+                },
+                {
+                    text: 'turnBlindEyeWhenUnreliable',
+                    options: [
+                        'completelyAgree',
+                        'agree',
+                        'ratherAgree',
+                        'ratherDisagree',
+                        'disagree',
+                        'completelyDisagree'
+                    ],
+                    answers: []
+                },
+                {
+                    text: 'valueCommunication',
+                    options: [
+                        'completelyAgree',
+                        'agree',
+                        'ratherAgree',
+                        'ratherDisagree',
+                        'disagree',
+                        'completelyDisagree'
+                    ],
+                    answers: []
+                }
+            ],
 
             viewingInvitation: {
                 message: "",
                 date: "",
-                timeFrame: "",
+                time: "",
             },
 
             potentialTenants: [
@@ -89,9 +155,8 @@ export default {
                 .forEach(([key, value]) => state.property[key] = value)
         },
 
-        alterIdealTenant(state: any, payload: Object): void {
-            Object.entries(payload)
-                .forEach(([key, value]) => state.property.idealTenant.questions[key].value = value)
+        alterIdealTenantAnswers(state: any, payload: any): void {
+            state.property.idealTenant[payload.key].answers = payload.answer
         },
 
         alterViewingInvitation(state: any, payload: Object): void {
@@ -104,7 +169,40 @@ export default {
         }
     },
 
-    getters: {
+    actions: {
+        async createUser(context: any): Promise<AxiosResponse<any>|void> {
+            return axios.put('http://localhost:8888/wp-json/roomwise/v1/user', {
+                email: context.state.email
+            }).then((response: any) => {
+                if(!response.data.success) {
+                    context.commit('changeErrorMessage', response.data.intlMessageKey)
+                }
+            })
+        },
 
+        async loginUser(context: any): Promise<AxiosResponse<any>|void> {
+            return axios.post('http://localhost:8888/wp-json/roomwise/v1/user/login', {
+                email: context.state.email,
+                password: context.state.password
+            }).then((response: any) => {
+                if(!response.data.success) {
+                    context.commit('changeErrorMessage', response.data.intlMessageKey)
+                }
+            })
+        },
+
+        async upsertRoom(context: any): Promise<AxiosResponse<any>|void> {
+            if(!context.state.property.createListing)
+                return;
+
+            return axios.post('http://localhost:8888/wp-json/roomwise/v1/room', context.state)
+                .then((response: any) => {
+                    if(response.data.success && response.data.postId) {
+                        context.state.property.id = response.data.postId
+                    } else {
+                        context.commit('changeErrorMessage', response.data.intlMessageKey)
+                    }
+                })
+        }
     }
 }

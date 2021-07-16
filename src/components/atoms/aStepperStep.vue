@@ -6,6 +6,18 @@
 
 <style lang="scss">
   .stepper-step {
+    .boxed-heading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: calc(100% - 48px);
+      padding: 24px;
+      background: var(--color-lightgrey);
+      margin-bottom: 48px;
+      border-radius: var(--border-radius-standard);
+    }
+
     p {
       text-align: center;
       margin: 20px 28px 40px;
