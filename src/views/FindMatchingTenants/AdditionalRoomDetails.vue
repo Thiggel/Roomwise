@@ -6,6 +6,8 @@
         type="upload"
         key="propertyImages"
         v-model="propertyImages"
+        @validate="validate($event, 'propertyImages')"
+        :showValidationStatus="showValidationStatus"
         @update:model-value="$emit('input')"
     ></c-upload>
 
@@ -57,6 +59,7 @@ export default {
     })
 
     const validationStatus: any = reactive<object>({
+      propertyImages: false,
       propertyRoomSize: false,
     })
 

@@ -3,7 +3,7 @@
     <label :for="key">
       {{ title }}<i v-if="required" class="required">*</i>
     </label>
-    <div class="upload-area">
+    <div class="upload-area" :class="{red: required && showValidationStatus && !uploadedFiles.length}">
       <input
           type="file"
           multiple
@@ -21,6 +21,7 @@
       </div>
     </div>
     <label>{{ $t(uploadError) }}</label>
+    <span class="error-message" v-if="required && showValidationStatus && !uploadedFiles.length">{{ $t('thisFieldIsRequired') }}</span>
     <label class="max-size">Max: 10Mb</label>
   </div>
 
@@ -37,10 +38,11 @@
     props: {
       title: String,
       required: Boolean,
-      key: String
+      key: String,
+      showValidationStatus: Boolean
     },
 
-    setup(_: any, context: any) {
+    setup(props: any, context: any) {
       const loading = ref<boolean>(false)
       const uploadedFiles = ref<Array<string>>([])
       const uploadError = ref<string>("")
@@ -66,6 +68,7 @@
               if(!uploadedFiles.value.includes(file)) {
                 uploadedFiles.value.push(file)
                 context.emit('update:modelValue', uploadedFiles.value)
+                context.emit('validate', !props.required || uploadedFiles.value.length)
               }
             })
           }
@@ -75,6 +78,7 @@
       function removeFile(file: string): void {
         uploadedFiles.value.splice(uploadedFiles.value.indexOf(file), 1)
         context.emit('update:modelValue', uploadedFiles.value)
+        context.emit('validate', !props.required || uploadedFiles.value.length)
       }
 
       return { loading, uploadFiles, uploadedFiles, uploadError, removeFile }
@@ -103,6 +107,15 @@
       }
     }
 
+    span.error-message {
+      font-size: 0.75rem;
+      color: var(--color-darkgrey);
+      line-height: 0.75rem;
+      display: block;
+      width: auto;
+      margin-bottom: 24px;
+    }
+
     .upload-area {
       border: 1px solid var(--color-lightgrey);
       border-radius: var(--border-radius-standard);
@@ -117,6 +130,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      &.red {
+        border: 1px solid var(--color-red);
+      }
 
       input[type=file] {
         position: absolute;
