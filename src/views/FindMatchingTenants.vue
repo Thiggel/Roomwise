@@ -48,7 +48,7 @@
         <c-button
             class="big secondary black-font"
             v-if="currentStep !== 0"
-            @click="currentStep--"
+            @click="currentStep--; validationStatus = true"
         >
           <i class="las la-arrow-left"></i>
         </c-button>
