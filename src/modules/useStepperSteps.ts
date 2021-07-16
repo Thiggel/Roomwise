@@ -106,7 +106,7 @@ export default function() {
         }
     ])
 
-    const currentStep = ref<number>(2)
+    const currentStep = ref<number>(0)
 
     return { steps, currentStep }
 }

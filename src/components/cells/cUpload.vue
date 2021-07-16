@@ -3,7 +3,14 @@
     <label :for="key">
       {{ title }}<i v-if="required" class="required">*</i>
     </label>
-    <div class="upload-area" :class="{red: required && showValidationStatus && !uploadedFiles.length}">
+    <div
+        class="upload-area"
+        :class="{red: required && showValidationStatus && !uploadedFiles.length, hover: isHovered}"
+        @dragenter="isHovered = true"
+        @dragleave="isHovered = false"
+        @mouseout="isHovered = false"
+        @drop="isHovered = false"
+    >
       <input
           type="file"
           multiple
@@ -46,6 +53,7 @@
       const loading = ref<boolean>(false)
       const uploadedFiles = ref<Array<string>>([])
       const uploadError = ref<string>("")
+      const isHovered = ref<boolean>(false)
 
       function uploadFiles(files: Files|null): void {
         const formData = new FormData()
@@ -81,7 +89,7 @@
         context.emit('validate', !props.required || uploadedFiles.value.length)
       }
 
-      return { loading, uploadFiles, uploadedFiles, uploadError, removeFile }
+      return { loading, uploadFiles, uploadedFiles, uploadError, removeFile, isHovered }
     }
   });
 </script>
@@ -161,7 +169,7 @@
         }
       }
 
-      &:hover {
+      &:hover, &.hover {
         box-shadow: 0 0 0 3px var(--color-green);
 
         .la,
