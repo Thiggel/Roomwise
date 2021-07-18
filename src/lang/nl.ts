@@ -75,5 +75,6 @@ export default {
     whatIsTenantAllowed: 'Wat mag de huurder doen?',
     aboutYourIdealTenant: 'Over uw ideale huurder',
     pleaseIndicateHowMuchYouAgree: 'Geef alstublieft aan in hoeverre u het eens bent met de stelling',
-    useDifferentEmail: 'Gebruik een ander e-mailadres om in te loggen'
+    useDifferentEmail: 'Gebruik een ander e-mailadres om in te loggen',
+    successSendEmail: 'De uitnodigingen zijn succesvol verzonden'
 }

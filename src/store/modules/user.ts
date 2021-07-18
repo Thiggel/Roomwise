@@ -57,6 +57,7 @@ export default {
                         'onlyBoys',
                         'internationals',
                         'dutchPeople',
+                        'students',
                         'postStudying',
                         'couples',
                         'preferWithJob'
@@ -64,12 +65,13 @@ export default {
                     answers: [],
                     removeWhenChecked: {
                         'everyone': 'all',
-                        'onlyGirls': ['onlyBoys', 'couples', 'everyone'],
-                        'onlyBoys': ['onlyGirls', 'couples', 'everyone'],
+                        'onlyGirls': ['onlyBoys', 'everyone'],
+                        'onlyBoys': ['onlyGirls', 'everyone'],
                         'internationals': ['dutchPeople', 'everyone'],
                         'dutchPeople': ['internationals', 'everyone'],
-                        'postStudying': ['everyone'],
-                        'couples': ['onlyGirls', 'onlyBoys', 'everyone'],
+                        'students': ['everyone', 'postStudying'],
+                        'postStudying': ['everyone', 'students'],
+                        'couples': ['everyone'],
                         'preferWithJob': ['everyone']
                     }
                 },
@@ -205,7 +207,7 @@ export default {
 
     actions: {
         async createUser(context: any): Promise<AxiosResponse<any>|void> {
-            return axios.put('http://localhost:8888/wp-json/roomwise/v1/user', {
+            return axios.put(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/user', {
                 email: context.state.email
             }).then((response: any) => {
                 if(!response.data.success) {
@@ -215,7 +217,7 @@ export default {
         },
 
         async loginUser(context: any): Promise<AxiosResponse<any>|void> {
-            return axios.post('http://localhost:8888/wp-json/roomwise/v1/user/login', {
+            return axios.post(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/user/login', {
                 email: context.state.email,
                 password: context.state.password
             }).then((response: any) => {
@@ -226,10 +228,7 @@ export default {
         },
 
         async upsertRoom(context: any): Promise<AxiosResponse<any>|void> {
-            if(!context.state.property.createListing)
-                return;
-
-            return axios.post('http://localhost:8888/wp-json/roomwise/v1/room', context.state)
+            return axios.post(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/room', context.state)
                 .then((response: any) => {
                     if(response.data.success && response.data.postId) {
                         context.state.property.id = response.data.postId
@@ -237,6 +236,31 @@ export default {
                         context.commit('changeErrorMessage', response.data.intlMessageKey)
                     }
                 })
+        },
+
+        async sendInvitations(context: any): Promise<AxiosResponse<any>|void> {
+            const userIds = context.state.property.potentialTenants.map((tenant: any) => {
+                if(tenant.sendInvitation) {
+                    return tenant.id;
+                }
+            })
+
+            return axios.post(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/sendInvitation', {
+                users: userIds,
+                name: context.state.property.title,
+                date: context.state.property.viewingInvitation.date,
+                time: context.state.property.viewingInvitation.time,
+                message: context.state.property.viewingInvitation.message,
+                address: context.state.property.street + " " + context.state.property.houseNumber,
+                agencyEmail: context.state.email
+            })
+            .then((response: any) => {
+                if(response.data.success && response.data.postId) {
+                    context.state.property.id = response.data.postId
+                } else {
+                    context.commit('changeErrorMessage', 'successSendEmail')
+                }
+            })
         }
     }
 }

@@ -14,4 +14,6 @@ import MinimalHeader from "@/components/organisms/MinimalHeader.vue";
 export default {
   components: {MinimalHeader}
 }
+
+console.log(process.env)
 </script>

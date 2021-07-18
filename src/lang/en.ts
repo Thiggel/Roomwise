@@ -81,5 +81,6 @@ export default {
   whatIsTenantAllowed: 'What is the tenant allowed to do?',
   aboutYourIdealTenant: 'About your ideal tenant',
   pleaseIndicateHowMuchYouAgree: 'Please, indicate how much you agree with the statement',
-  useDifferentEmail: 'Use a different email address to log in'
+  useDifferentEmail: 'Use a different email address to log in',
+  successSendEmail: 'The invitations were sent successfully'
 }
