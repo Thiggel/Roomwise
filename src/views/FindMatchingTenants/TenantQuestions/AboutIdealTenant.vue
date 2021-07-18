@@ -9,7 +9,7 @@
         :model-value="getAnswer(2)"
         @update:model-value="setAnswerAndValidate(2, $event)"
         :showValidationStatus="showValidationStatus"
-        type="radio"
+        type="checkbox"
     ></c-option-group>
   </a-stepper-step>
 </template>
@@ -17,7 +17,7 @@
 <script lang="ts">
 import COptionGroup from "@/components/cells/cOptionGroup.vue"
 import useIdealTenant from "@/modules/useIdealTenant"
-import AStepperStep from "@/components/atoms/aStepperStep.vue";
+import AStepperStep from "@/components/atoms/aStepperStep.vue"
 
 export default {
   components: {AStepperStep, COptionGroup},

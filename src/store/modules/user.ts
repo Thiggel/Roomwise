@@ -61,7 +61,17 @@ export default {
                         'couples',
                         'preferWithJob'
                     ],
-                    answers: []
+                    answers: [],
+                    removeWhenChecked: {
+                        'everyone': 'all',
+                        'onlyGirls': ['onlyBoys', 'couples', 'everyone'],
+                        'onlyBoys': ['onlyGirls', 'couples', 'everyone'],
+                        'internationals': ['dutchPeople', 'everyone'],
+                        'dutchPeople': ['internationals', 'everyone'],
+                        'postStudying': ['everyone'],
+                        'couples': ['onlyGirls', 'onlyBoys', 'everyone'],
+                        'preferWithJob': ['everyone']
+                    }
                 },
                 {
                     text: 'canHavePet',
@@ -118,6 +128,7 @@ export default {
                     picture: 'https://unsplash.com/photos/K84vnnzxmTQ/download?force=true',
                     match: 92,
                     profileLink: 'https://www.google.com',
+                    email: 'f.laitenberger@gmail.com',
                     sendInvitation: false
                 },
                 {
@@ -125,6 +136,7 @@ export default {
                     picture: 'https://unsplash.com/photos/K84vnnzxmTQ/download?force=true',
                     match: 92,
                     profileLink: 'https://www.google.com',
+                    email: 'f.laitenberger@gmail.com',
                     sendInvitation: false
                 },
                 {
@@ -132,6 +144,7 @@ export default {
                     picture: 'https://unsplash.com/photos/K84vnnzxmTQ/download?force=true',
                     match: 92,
                     profileLink: 'https://www.google.com',
+                    email: 'f.laitenberger@gmail.com',
                     sendInvitation: false
                 },
                 {
@@ -139,6 +152,7 @@ export default {
                     picture: 'https://unsplash.com/photos/K84vnnzxmTQ/download?force=true',
                     match: 92,
                     profileLink: 'https://www.google.com',
+                    email: 'f.laitenberger@gmail.com',
                     sendInvitation: false
                 }
             ]
@@ -156,6 +170,26 @@ export default {
         },
 
         alterIdealTenantAnswers(state: any, payload: any): void {
+            if(state.property.idealTenant[payload.key]?.removeWhenChecked && payload.answer.length) {
+                if(!Array.isArray(payload.answer))
+                    return
+
+                const lastElement = payload.answer[payload.answer.length - 1]
+                const remove = state.property.idealTenant[payload.key]?.removeWhenChecked[lastElement]
+
+                if(remove === 'all') {
+                    payload.answer = [ lastElement ]
+                } else {
+                    remove.forEach((el: string): void => {
+                        const index = state.property.idealTenant[payload.key].answers.indexOf(el)
+
+                        if(index >= 0) {
+                            payload.answer.splice(index, 1)
+                        }
+                    })
+                }
+            }
+
             state.property.idealTenant[payload.key].answers = payload.answer
         },
 
