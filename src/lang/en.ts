@@ -86,6 +86,7 @@ export default {
   showMoreMatches: 'See more matches',
   noMatchesFound: 'Unfortunately, no matches were found for your search. Try changing the filter parameters to find matching tenants.',
   forgotPassword: 'Forgot Password',
-  userCreated: 'You\'ve received a verification email that you can use to set your password',
-  oneTimeAgencyFees: 'One-time agency fees'
+  userCreated: 'We\'ve sent you a verification email that you can use to set your password for future searches.',
+  oneTimeAgencyFees: 'One-time agency fees',
+  acceptDataDeclaration: 'I have read and agree to the <a href="https://roomwise.nl/data-declaration/">Privacy Policy</a>'
 }

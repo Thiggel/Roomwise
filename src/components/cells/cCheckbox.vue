@@ -7,7 +7,7 @@
         :value="isChecked"
         @change="isChecked = !isChecked; $emit('update:modelValue', isChecked)"
     >
-    <label :for="'check-' + key">
+    <label :for="'check-' + key" :class="{red: required && showValidationStatus && !isChecked}">
       <slot></slot>
     </label>
   </div>
@@ -20,7 +20,15 @@
     name: 'cCheckbox',
     props: {
       modelValue: Boolean,
-      key: String
+      key: String,
+      required: {
+        type: Boolean,
+        default: false
+      },
+      showValidationStatus: {
+        type: Boolean,
+        default: false
+      }
     },
     emits: ['update:modelValue'],
 
@@ -72,6 +80,10 @@
     label {
       font-size: 0.75rem;
       font-weight: var(--font-weight-lighter);
+
+      &.red {
+        color: var(--color-red);
+      }
     }
   }
 </style>

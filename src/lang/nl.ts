@@ -42,7 +42,7 @@ export default {
     uploadingFiles: 'Bestanden uploaden',
     thisFieldIsRequired: 'dit veld is verplicht',
     noValidValue: 'Dit is geen geldige waarde',
-    userAlreadyExists: 'Er is al een account gekoppeld aan dit e-mailadres. Gelieve in te loggen om verder te gaan',
+    userAlreadyExists: 'Gelieve in te loggen. Er bestaat al een account met dit e-mailadres.',
     thereWasAnError: 'Er is iets fout gegaan',
     createListing: 'Voeg kamer toe op Roomwise om gemakkelijker passende huurders te vinden',
     passwordWrong: 'Het wachtwoord dat je hebt ingevoerd is verkeerd',
@@ -80,6 +80,7 @@ export default {
     showMoreMatches: 'Meer matches bekijken',
     noMatchesFound: 'Helaas zijn er geen overeenkomsten gevonden voor uw zoekopdracht. Probeer de filterparameters te wijzigen om overeenkomende huurders te vinden.',
     forgotPassword: 'Wachtwoord vergeten',
-    userCreated: 'U heeft een verificatie-e-mail ontvangen die u kunt gebruiken om uw wachtwoord in te stellen',
-    oneTimeAgencyFees: 'Eenmalige courtage'
+    userCreated: 'We hebben u een verificatie-e-mail gestuurd die u kunt gebruiken om uw wachtwoord in te stellen voor toekomstige zoekopdrachten.',
+    oneTimeAgencyFees: 'Eenmalige courtage',
+    acceptDataDeclaration: 'Ik heb het <a href="https://roomwise.nl/data-declaration/">Privacybeleid</a> gelezen en ga ermee akkoord'
 }

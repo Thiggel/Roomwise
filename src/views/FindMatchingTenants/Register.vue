@@ -30,19 +30,28 @@
         v-if="showPasswordField"
         regexp=".*"
     ></c-text-field>
+
+    <c-checkbox
+        v-model="acceptedDataDeclaration"
+        :required="true"
+        @update:model-value="validate"
+        :showValidationStatus="showValidationStatus">
+      <span v-html="$t('acceptDataDeclaration')"></span>
+    </c-checkbox>
   </a-stepper-step>
 </template>
 
 <script lang="ts">
 import { useStore } from 'vuex'
-import {computed, reactive} from 'vue'
+import {computed, reactive, ref} from 'vue'
 import CTextField from "@/components/cells/cTextField.vue";
 import AStepperStep from "@/components/atoms/aStepperStep.vue";
 import CButton from "@/components/cells/cButton.vue";
+import CCheckbox from "@/components/cells/cCheckbox.vue";
 
 
 export default {
-  components: {CButton, AStepperStep, CTextField},
+  components: {CCheckbox, CButton, AStepperStep, CTextField},
 
   props: {
     showValidationStatus: {
@@ -71,6 +80,8 @@ export default {
       set: (value: string): void => store.commit('alterUser', { password: value })
     })
 
+    const acceptedDataDeclaration = ref<boolean>(false);
+
     const validationStatus: any = reactive<object>({
       agencyEmail: false,
       agencyPassword: false
@@ -85,6 +96,8 @@ export default {
         status = Object.values(validationStatus).every(item => item)
       }
 
+      status = status && acceptedDataDeclaration.value
+
       context.emit('validate', status)
     }
 
@@ -92,6 +105,7 @@ export default {
       agencyEmail,
       agencyPassword,
       showPasswordField,
+      acceptedDataDeclaration,
       validate
     }
   }

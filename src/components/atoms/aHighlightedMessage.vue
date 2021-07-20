@@ -24,10 +24,10 @@ export default defineComponent({
     padding: 12px 16px;
     margin-bottom: 24px;
     border-radius: var(--border-radius-standard);
-    color: var(--color-white);
+    color: var(--color-black);
     display: flex;
     align-items: center;
-    background: var(--color-blue);
+    background: var(--color-yellow);
 
     &:before {
       content: "\f06a";
@@ -35,10 +35,23 @@ export default defineComponent({
       font-size: 24px;
       font-weight: 900;
       margin-right: 12px;
+      color: var(--color-black);
+    }
+
+    &.success {
+      background: var(--color-green);
+
+      &:before {
+        color: var(--color-white);
+      }
     }
 
     &.error {
       background: var(--color-red);
+
+      &:before {
+        color: var(--color-white);
+      }
     }
   }
 </style>

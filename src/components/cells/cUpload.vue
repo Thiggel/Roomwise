@@ -67,7 +67,7 @@
 
         loading.value = true
 
-        axios.post(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/upload', formData, {
+        axios.post(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/uploadFile', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'X-WP-Nonce': store.state.user.nonce

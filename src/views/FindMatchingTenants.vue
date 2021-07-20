@@ -13,7 +13,7 @@
 
     <div class="stepper-body">
       <a-highlighted-message
-          :type="errorMessage !== 'userAlreadyExists' ? 'error' : 'info'"
+          :type="errorMessage !== 'userAlreadyExists' ? (errorMessage === 'successSendEmail' ? 'success' : 'error') : 'info'"
           v-if="errorMessage.length"
       >
         {{ $t(errorMessage) }}
@@ -189,8 +189,6 @@
             nextStep()
           }
         })
-
-        store.dispatch('sendInvitations')
       })
 
       return {

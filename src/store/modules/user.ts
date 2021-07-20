@@ -221,7 +221,12 @@ export default {
 
         async getMatchingTenants(context: any): Promise<AxiosResponse<any>|void> {
             return axios.post(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/tenant', {
-                idealTenant: context.state.property.idealTenant
+                idealTenant: context.state.property.idealTenant,
+                property: {
+                    city: context.state.property.city,
+                    price: parseFloat(context.state.property.pricePerMonth),
+                    date: context.state.property.moveInDate
+                }
             }, {
                 headers: {
                     'X-WP-Nonce': context.state.nonce
