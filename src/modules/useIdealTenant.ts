@@ -1,5 +1,5 @@
-import {useStore} from "vuex";
-import {computed} from "vue";
+import {useStore} from "vuex"
+import {computed} from "vue"
 
 export default function(context: any) {
     const store = useStore()

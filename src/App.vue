@@ -9,11 +9,9 @@
 </style>
 
 <script lang="ts">
-import MinimalHeader from "@/components/organisms/MinimalHeader.vue";
+import MinimalHeader from "@/components/organisms/MinimalHeader.vue"
 
 export default {
   components: {MinimalHeader}
 }
-
-console.log(process.env)
 </script>

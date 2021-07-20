@@ -41,6 +41,7 @@ import ModalWindow from "@/components/organisms/ModalWindow.vue"
 import ViewingInvitation from "@/views/FindMatchingTenants/ViewingInvitation.vue"
 import CButton from "@/components/cells/cButton.vue"
 import AStepperStep from "@/components/atoms/aStepperStep.vue"
+import {useStore} from "vuex";
 
 export default {
   emits: ['close'],
@@ -53,6 +54,9 @@ export default {
   },
 
   setup(_: any, context: any) {
+
+    const store = useStore()
+
     const submitted = ref<boolean>(false)
     const validationStatus = ref<boolean>(false)
     const showValidationStatus = ref<boolean>(false)
@@ -65,6 +69,7 @@ export default {
 
     function submit(): void {
       if(validate()) {
+        store.dispatch('sendInvitations')
         submitted.value = true
       }
     }

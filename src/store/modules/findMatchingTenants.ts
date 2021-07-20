@@ -1,6 +1,7 @@
 export default {
     state: () => ({
         errorMessage: "",
+        infoMessage: "",
         showPasswordField: false
     }),
 
@@ -11,6 +12,10 @@ export default {
             }
 
             state.errorMessage = message
+        },
+
+        changeInfoMessage(state: any, message: string): void {
+            state.infoMessage = message
         },
 
         togglePasswordField(state: any, show: boolean): void {

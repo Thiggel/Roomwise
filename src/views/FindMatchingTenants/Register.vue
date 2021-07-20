@@ -28,6 +28,7 @@
         :showValidationStatus="showValidationStatus"
         type="password"
         v-if="showPasswordField"
+        regexp=".*"
     ></c-text-field>
   </a-stepper-step>
 </template>

@@ -63,16 +63,29 @@
       ></c-text-field>
 
       <c-text-field
-          :title="$t('moveInDate')"
+          :title="$t('oneTimeAgencyFees')"
+          placeholder="€"
+          :placeholderRight="true"
           :required="true"
-          key="propertyMoveInDate"
-          v-model="propertyMoveInDate"
+          key="oneTimeAgencyFees"
+          v-model="oneTimeAgencyFees"
           @update:model-value="$emit('input')"
-          @validate="validate($event, 'propertyMoveInDate')"
+          @validate="validate($event, 'oneTimeAgencyFees')"
           :showValidationStatus="showValidationStatus"
-          regexp="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$"
+          regexp="^[€]?[ ]?\d{1,5}(?:[.,]\d{3})*(?:[.,]\d{2})?[ ]?[€]?$"
       ></c-text-field>
     </div>
+
+    <c-text-field
+        :title="$t('moveInDate')"
+        :required="true"
+        key="propertyMoveInDate"
+        v-model="propertyMoveInDate"
+        @update:model-value="$emit('input')"
+        @validate="validate($event, 'propertyMoveInDate')"
+        :showValidationStatus="showValidationStatus"
+        regexp="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$"
+    ></c-text-field>
 
     <c-checkbox v-model="createListing">{{ $t('createListing') }}</c-checkbox>
   </a-stepper-step>
@@ -81,9 +94,9 @@
 <script lang="ts">
 import { useStore } from 'vuex'
 import { computed, reactive } from 'vue'
-import CTextField from "@/components/cells/cTextField.vue";
-import AStepperStep from "@/components/atoms/aStepperStep.vue";
-import CCheckbox from "@/components/cells/cCheckbox.vue";
+import CTextField from "@/components/cells/cTextField.vue"
+import AStepperStep from "@/components/atoms/aStepperStep.vue"
+import CCheckbox from "@/components/cells/cCheckbox.vue"
 
 
 export default {
@@ -136,13 +149,19 @@ export default {
       set: (value: string): void => store.commit('alterProperty', { createListing: value })
     })
 
+    const oneTimeAgencyFees = computed({
+      get: (): string => store.state.user.property.oneTimeAgencyFees,
+      set: (value: string): void => store.commit('alterProperty', { oneTimeAgencyFees: value })
+    })
+
     const validationStatus: any = reactive<object>({
       propertyTitle: false,
       propertyCity: false,
       propertyStreet: false,
       propertyHouseNumber: false,
       propertyPrice: false,
-      propertyMoveInDate: false
+      propertyMoveInDate: false,
+      oneTimeAgencyFees: false
     })
 
     function validate(event: any, key: string) {
@@ -150,7 +169,7 @@ export default {
       context.emit('validate', Object.values(validationStatus).every(item => item))
     }
 
-    return { createListing, propertyTitle, propertyCity, propertyStreet, propertyHouseNumber, propertyPrice, propertyMoveInDate, validationStatus, validate }
+    return { createListing, propertyTitle, propertyCity, propertyStreet, propertyHouseNumber, propertyPrice, propertyMoveInDate, oneTimeAgencyFees, validationStatus, validate }
   }
 }
 </script>

@@ -1,48 +1,59 @@
 import {defineAsyncComponent, ref, shallowRef} from "vue";
+import aLoadingSpinner from "@/components/atoms/aLoadingSpinner.vue";
 
 const Register = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/Register.vue")
-    // loadingComponent: undefined
+    loader: (): any => import("@/views/FindMatchingTenants/Register.vue"),
+    loadingComponent: aLoadingSpinner
 })
 
 const RoomDetails = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/RoomDetails.vue")
+    loader: (): any => import("@/views/FindMatchingTenants/RoomDetails.vue"),
+    loadingComponent: aLoadingSpinner
 })
 
 const AdditionalRoomDetails = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/AdditionalRoomDetails.vue")
+    loader: (): any => import("@/views/FindMatchingTenants/AdditionalRoomDetails.vue"),
+    loadingComponent: aLoadingSpinner
 })
 
 const OptionalRoomDetails = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/OptionalRoomDetails.vue")
+    loader: (): any => import("@/views/FindMatchingTenants/OptionalRoomDetails.vue"),
+    loadingComponent: aLoadingSpinner
 })
 
 const Neighbourhood = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions/Neighbourhood.vue")
+    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions/Neighbourhood.vue"),
+    loadingComponent: aLoadingSpinner
 })
 
 const TenantPermissions = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions/TenantPermissions.vue")
+    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions/TenantPermissions.vue"),
+    loadingComponent: aLoadingSpinner
 })
 
 const AboutIdealTenant = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions/AboutIdealTenant.vue")
+    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions/AboutIdealTenant.vue"),
+    loadingComponent: aLoadingSpinner
 })
 
 const AboutIdealTenantTwo = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions/AboutIdealTenantTwo.vue")
+    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions/AboutIdealTenantTwo.vue"),
+    loadingComponent: aLoadingSpinner
 })
 
 const IndicateAgreement = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions/IndicateAgreement.vue")
+    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions/IndicateAgreement.vue"),
+    loadingComponent: aLoadingSpinner
 })
 
 const IndicateAgreementTwo = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions/IndicateAgreementTwo.vue")
+    loader: (): any => import("@/views/FindMatchingTenants/TenantQuestions/IndicateAgreementTwo.vue"),
+    loadingComponent: aLoadingSpinner
 })
 
 const YourIdealTenant = defineAsyncComponent({
-    loader: (): any => import("@/views/FindMatchingTenants/YourIdealTenant.vue")
+    loader: (): any => import("@/views/FindMatchingTenants/YourIdealTenant.vue"),
+    loadingComponent: aLoadingSpinner
 })
 
 export default function() {

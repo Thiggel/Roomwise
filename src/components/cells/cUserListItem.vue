@@ -1,6 +1,14 @@
 <template>
   <div class="user-list-item">
-    <img :src="modelValue.picture">
+    <img
+        src="../../assets/profile-picture-placeholder.png"
+        v-if="profilePicture === '' || !profilePicture"
+    >
+    <img
+        :src="profilePicture"
+        @error="changePictureToFallback"
+        v-else
+    >
 
     <div class="information">
       <div class="name">{{ modelValue.name }}</div>
@@ -8,27 +16,28 @@
     </div>
 
     <div class="actions">
-      <c-button>{{ $t('viewProfile') }}</c-button>
+      <c-button type="link" :to="modelValue.profileLink">{{ $t('viewProfile') }}</c-button>
       <c-checkbox v-model="sendInvitation">{{ $t('sendInvitation') }}</c-checkbox>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, watch } from "vue";
-  import CButton from "@/components/cells/cButton.vue";
-  import CCheckbox from "@/components/cells/cCheckbox.vue";
+  import { defineComponent, ref, watch } from "vue"
+  import CButton from "@/components/cells/cButton.vue"
+  import CCheckbox from "@/components/cells/cCheckbox.vue"
 
   export default defineComponent({
     name: 'cUserListItem',
     components: {CCheckbox, CButton},
+
     props: {
       modelValue: Object
     },
 
     emits: [ 'update:modelValue' ],
 
-    setup(props, context) {
+    setup(props: any, context: any) {
       const sendInvitation = ref<boolean>(props.modelValue?.sendInvitation)
 
       watch(sendInvitation, (newValue: boolean): void => {
@@ -37,7 +46,14 @@
         context.emit('update:modelValue', user)
       })
 
-      return { sendInvitation }
+      const profilePicture = ref<string>(props.modelValue.picture)
+
+      function changePictureToFallback(): void {
+        profilePicture.value = require('@/assets/profile-picture-placeholder.png')
+      }
+
+
+      return { sendInvitation, profilePicture, changePictureToFallback }
     }
 
   });

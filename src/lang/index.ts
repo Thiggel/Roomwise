@@ -17,9 +17,9 @@ const getLocale = () => {
   const savedLang: string|null = localStorage.getItem('preferredLanguage')
 
   if(savedLang)
-    return savedLang;
+    return savedLang
 
-  return navigator.language.split("-")[0];
+  return navigator.language.split("-")[0]
 }
 
 const i18n = createI18n({

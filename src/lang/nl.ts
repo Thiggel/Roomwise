@@ -76,5 +76,10 @@ export default {
     aboutYourIdealTenant: 'Over uw ideale huurder',
     pleaseIndicateHowMuchYouAgree: 'Geef alstublieft aan in hoeverre u het eens bent met de stelling',
     useDifferentEmail: 'Gebruik een ander e-mailadres om in te loggen',
-    successSendEmail: 'De uitnodigingen zijn succesvol verzonden'
+    successSendEmail: 'De uitnodigingen zijn succesvol verzonden',
+    showMoreMatches: 'Meer matches bekijken',
+    noMatchesFound: 'Helaas zijn er geen overeenkomsten gevonden voor uw zoekopdracht. Probeer de filterparameters te wijzigen om overeenkomende huurders te vinden.',
+    forgotPassword: 'Wachtwoord vergeten',
+    userCreated: 'U heeft een verificatie-e-mail ontvangen die u kunt gebruiken om uw wachtwoord in te stellen',
+    oneTimeAgencyFees: 'Eenmalige courtage'
 }

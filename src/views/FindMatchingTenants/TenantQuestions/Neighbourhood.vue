@@ -18,7 +18,7 @@
   import useIdealTenant from "@/modules/useIdealTenant"
 
   import COptionGroup from "@/components/cells/cOptionGroup.vue"
-  import AStepperStep from "@/components/atoms/aStepperStep.vue";
+  import AStepperStep from "@/components/atoms/aStepperStep.vue"
 
   export default {
     components: {AStepperStep, COptionGroup},

@@ -6,20 +6,20 @@
     <div class="options">
       <c-locale-changer></c-locale-changer>
 
-      <c-button>{{ $t('quit') }}</c-button>
+      <c-button type="link" to="https://www.roomwise.nl/">{{ $t('quit') }}</c-button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import {defineComponent} from "vue";
-  import CButton from "@/components/cells/cButton.vue";
-  import CLocaleChanger from "@/components/cells/cLocaleChanger.vue";
+  import {defineComponent} from "vue"
+  import CButton from "@/components/cells/cButton.vue"
+  import CLocaleChanger from "@/components/cells/cLocaleChanger.vue"
 
   export default defineComponent({
     name: 'MinimalHeader',
     components: {CLocaleChanger, CButton}
-  });
+  })
 </script>
 
 <style lang="scss" scoped>

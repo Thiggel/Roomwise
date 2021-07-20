@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-  import {defineComponent, computed} from "vue";
+  import {defineComponent, computed} from "vue"
 
   export default defineComponent({
     name: 'cOptionGroup',
@@ -50,7 +50,7 @@
 
       return { answers }
     }
-  });
+  })
 </script>
 
 <style lang="scss">
@@ -87,6 +87,7 @@
       display: flex;
       align-items: center;
       margin-bottom: 24px;
+      cursor: pointer;
 
       input[type=radio] {
         margin-right: 12px;

@@ -29,7 +29,7 @@
 <script lang="ts">
 import COptionGroup from "@/components/cells/cOptionGroup.vue"
 import useIdealTenant from "@/modules/useIdealTenant"
-import AStepperStep from "@/components/atoms/aStepperStep.vue";
+import AStepperStep from "@/components/atoms/aStepperStep.vue"
 
 export default {
   components: {AStepperStep, COptionGroup},

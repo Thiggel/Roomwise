@@ -19,11 +19,19 @@
         {{ $t(errorMessage) }}
       </a-highlighted-message>
 
+      <a-highlighted-message
+          type="info"
+          v-if="infoMessage.length"
+      >
+        {{ $t(infoMessage) }}
+      </a-highlighted-message>
+
       <c-button
           class="link"
           v-if="steps[currentStep].isOptional"
           @click="currentStep++"
       >{{ $t('skipStep') }}</c-button>
+
 
       <component
           :is="steps[currentStep].component"
@@ -36,6 +44,7 @@
             class="big"
             v-if="currentStep === steps.length-1"
             @click="isModalOpen = true"
+            :loading="stepLoading"
         >{{ $t('sendInvitationToCheckedTenants') }}</c-button>
 
         <c-button
@@ -43,6 +52,7 @@
             :class="{disabled: !validationStatus}"
             v-if="currentStep !== steps.length-1"
             @click="nextStep"
+            :loading="stepLoading"
         >{{ $t('next') }}</c-button>
 
         <c-button
@@ -59,18 +69,20 @@
 
 <script lang="ts">
   import { useStore } from 'vuex'
-  import { ref, computed } from 'vue'
+  import { ref, computed, onMounted } from 'vue'
   import useStepperSteps from '@/modules/useStepperSteps'
 
   import StepperHeader from "@/components/organisms/StepperHeader.vue"
   import CButton from "@/components/cells/cButton.vue"
   import AHighlightedMessage from "@/components/atoms/aHighlightedMessage.vue"
-  import InvitationFormWindow from "@/views/FindMatchingTenants/InvitationFormWindow.vue";
+  import InvitationFormWindow from "@/views/FindMatchingTenants/InvitationFormWindow.vue"
+  import ALoadingSpinner from "@/components/atoms/aLoadingSpinner.vue"
 
 
   export default {
     name: 'Home',
     components: {
+      ALoadingSpinner,
       InvitationFormWindow,
       AHighlightedMessage,
       CButton,
@@ -87,6 +99,11 @@
         set: () => store.commit('changeErrorMessage', '')
       })
 
+      const infoMessage = computed({
+        get: () => store.state.findMatchingTenants.infoMessage,
+        set: () => store.commit('changeInfoMessage', '')
+      })
+
       const showPasswordField = computed((): boolean => store.state.findMatchingTenants.showPasswordField)
 
       const validationStatus = ref<boolean>(false)
@@ -98,11 +115,15 @@
         return validationStatus.value
       }
 
-      function incrementStep(): void {
-        if(errorMessage.value === 'userNotLoggedIn')
-          currentStep.value = 0;
+      const stepLoading = ref<boolean>(false)
 
-        if(errorMessage.value.length) return;
+      function incrementStep(): void {
+        stepLoading.value = false
+
+        if(errorMessage.value === 'userNotLoggedIn')
+          currentStep.value = 0
+
+        if(errorMessage.value.length) return
 
         currentStep.value++
         showValidationStatus.value = false
@@ -120,7 +141,10 @@
       }
 
       function nextStep(): void {
+        infoMessage.value = ''
+
         if(validateForm()) {
+          stepLoading.value = true
           if(currentStep.value === 0) {
             loginOrRegister()
           } else if(currentStep.value > 0 && currentStep.value < 10) {
@@ -128,8 +152,16 @@
             if(currentStep.value >= 3) {
               store.commit('alterProperty', { status: 'publish' })
             }
+            stepLoading.value = true
+
+            if(store.state.user.property.createListing)
+              store.commit('alterProperty', { status: 'publish' })
 
             store.dispatch('upsertRoom').then(incrementStep)
+          }
+
+          if(currentStep.value === 9) {
+            store.dispatch('getMatchingTenants')
           }
         }
       }
@@ -144,6 +176,23 @@
         isModalOpen.value = false
       }
 
+      onMounted(() => {
+        window.addEventListener('keyup', (event: KeyboardEvent) => {
+          const KEYCODE_ENTER = 13
+
+          if(event.keyCode !== KEYCODE_ENTER)
+            return
+
+          if(currentStep.value === steps.value.length-1) {
+            isModalOpen.value = true
+          } else {
+            nextStep()
+          }
+        })
+
+        store.dispatch('sendInvitations')
+      })
+
       return {
         errorMessage,
         steps,
@@ -152,7 +201,9 @@
         validationStatus,
         showValidationStatus,
         nextStep,
-        closeModalWindow
+        closeModalWindow,
+        stepLoading,
+        infoMessage
       }
     }
   }

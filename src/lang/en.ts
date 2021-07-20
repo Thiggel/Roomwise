@@ -82,5 +82,10 @@ export default {
   aboutYourIdealTenant: 'About your ideal tenant',
   pleaseIndicateHowMuchYouAgree: 'Please, indicate how much you agree with the statement',
   useDifferentEmail: 'Use a different email address to log in',
-  successSendEmail: 'The invitations were sent successfully'
+  successSendEmail: 'The invitations were sent successfully',
+  showMoreMatches: 'See more matches',
+  noMatchesFound: 'Unfortunately, no matches were found for your search. Try changing the filter parameters to find matching tenants.',
+  forgotPassword: 'Forgot Password',
+  userCreated: 'You\'ve received a verification email that you can use to set your password',
+  oneTimeAgencyFees: 'One-time agency fees'
 }

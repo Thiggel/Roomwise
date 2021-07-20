@@ -10,7 +10,7 @@
           @update:model-value="$emit('input')"
           @validate="validate($event, 'propertyExtraCosts')"
           :showValidationStatus="showValidationStatus"
-          regexp="^[€]?[ ]?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2})?[ ]?[€]?$"
+          regexp="^[€]?[ ]?\d{1,5}(?:[.,]\d{3})*(?:[.,]\d{2})?[ ]?[€]?$"
       ></c-text-field>
 
       <c-text-field
@@ -22,7 +22,7 @@
           @update:model-value="$emit('input')"
           @validate="validate($event, 'propertyDeposit')"
           :showValidationStatus="showValidationStatus"
-          regexp="^[€]?[ ]?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2})?[ ]?[€]?$"
+          regexp="^[€]?[ ]?\d{1,5}(?:[.,]\d{3})*(?:[.,]\d{2})?[ ]?[€]?$"
       ></c-text-field>
     </div>
 

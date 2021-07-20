@@ -11,6 +11,7 @@ export default {
     state: () => ({
         email: "",
         password: "",
+        nonce: "",
 
         property: {
             createListing: true,
@@ -20,6 +21,7 @@ export default {
             street: "",
             houseNumber: "",
             pricePerMonth: "",
+            oneTimeAgencyFees: "",
             moveInDate: "",
             images: [],
             size: "",
@@ -124,40 +126,7 @@ export default {
                 time: "",
             },
 
-            potentialTenants: [
-                {
-                    name: 'Jos de Jong',
-                    picture: 'https://unsplash.com/photos/K84vnnzxmTQ/download?force=true',
-                    match: 92,
-                    profileLink: 'https://www.google.com',
-                    email: 'f.laitenberger@gmail.com',
-                    sendInvitation: false
-                },
-                {
-                    name: 'Jos de Jong',
-                    picture: 'https://unsplash.com/photos/K84vnnzxmTQ/download?force=true',
-                    match: 92,
-                    profileLink: 'https://www.google.com',
-                    email: 'f.laitenberger@gmail.com',
-                    sendInvitation: false
-                },
-                {
-                    name: 'Jos de Jong',
-                    picture: 'https://unsplash.com/photos/K84vnnzxmTQ/download?force=true',
-                    match: 92,
-                    profileLink: 'https://www.google.com',
-                    email: 'f.laitenberger@gmail.com',
-                    sendInvitation: false
-                },
-                {
-                    name: 'Jos de Jong',
-                    picture: 'https://unsplash.com/photos/K84vnnzxmTQ/download?force=true',
-                    match: 92,
-                    profileLink: 'https://www.google.com',
-                    email: 'f.laitenberger@gmail.com',
-                    sendInvitation: false
-                }
-            ]
+            potentialTenants: []
         }
     }),
 
@@ -212,6 +181,9 @@ export default {
             }).then((response: any) => {
                 if(!response.data.success) {
                     context.commit('changeErrorMessage', response.data.intlMessageKey)
+                } else {
+                    context.state.nonce = response.data.nonce
+                    context.commit('changeInfoMessage', 'userCreated')
                 }
             })
         },
@@ -223,36 +195,69 @@ export default {
             }).then((response: any) => {
                 if(!response.data.success) {
                     context.commit('changeErrorMessage', response.data.intlMessageKey)
+                } else {
+                    context.state.nonce = response.data.nonce
                 }
             })
         },
 
         async upsertRoom(context: any): Promise<AxiosResponse<any>|void> {
-            return axios.post(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/room', context.state)
-                .then((response: any) => {
+            return axios.post(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/room', context.state, {
+                headers: {
+                    'X-WP-Nonce': context.state.nonce
+                }
+            })
+                .then((response: any): void => {
                     if(response.data.success && response.data.postId) {
                         context.state.property.id = response.data.postId
                     } else {
                         context.commit('changeErrorMessage', response.data.intlMessageKey)
                     }
                 })
+                .catch((reason: any): void => {
+                    context.commit('changeErrorMessage', 'userNotLoggedIn')
+                })
+        },
+
+        async getMatchingTenants(context: any): Promise<AxiosResponse<any>|void> {
+            return axios.post(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/tenant', {
+                idealTenant: context.state.property.idealTenant
+            }, {
+                headers: {
+                    'X-WP-Nonce': context.state.nonce
+                }
+            })
+                .then((response: any): void => {
+                    if(response.data.success) {
+                        context.state.property.potentialTenants = response.data.tenants
+                    } else {
+                        context.commit('changeErrorMessage', 'thereWasAnError')
+                    }
+                })
+                .catch((reason: any): void => {
+                    context.commit('toggleLoadStateComponent', false)
+                })
         },
 
         async sendInvitations(context: any): Promise<AxiosResponse<any>|void> {
             const userIds = context.state.property.potentialTenants.map((tenant: any) => {
                 if(tenant.sendInvitation) {
-                    return tenant.id;
+                    return parseInt(tenant.id)
                 }
             })
 
-            return axios.post(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/sendInvitation', {
+            return axios.post(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/invitation/send', {
                 users: userIds,
                 name: context.state.property.title,
                 date: context.state.property.viewingInvitation.date,
                 time: context.state.property.viewingInvitation.time,
                 message: context.state.property.viewingInvitation.message,
-                address: context.state.property.street + " " + context.state.property.houseNumber,
+                listingId: context.state.property.id,
                 agencyEmail: context.state.email
+            }, {
+            headers: {
+                'X-WP-Nonce': context.state.nonce
+            }
             })
             .then((response: any) => {
                 if(response.data.success && response.data.postId) {

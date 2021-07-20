@@ -28,9 +28,9 @@
 <script lang="ts">
 import { useStore } from 'vuex'
 import {computed, reactive} from 'vue'
-import CTextField from "@/components/cells/cTextField.vue";
-import AStepperStep from "@/components/atoms/aStepperStep.vue";
-import CUpload from "@/components/cells/cUpload.vue";
+import CTextField from "@/components/cells/cTextField.vue"
+import AStepperStep from "@/components/atoms/aStepperStep.vue"
+import CUpload from "@/components/cells/cUpload.vue"
 
 
 export default {
@@ -59,7 +59,7 @@ export default {
     })
 
     const validationStatus: any = reactive<object>({
-      propertyImages: false,
+      //propertyImages: false,
       propertyRoomSize: false,
     })
 

@@ -36,6 +36,7 @@
 
 <script lang="ts">
   import { ref, defineComponent } from 'vue'
+  import { useStore } from 'vuex'
   import axios from 'axios'
   import { Files } from '../../types'
 
@@ -50,6 +51,8 @@
     },
 
     setup(props: any, context: any) {
+      const store = useStore()
+
       const loading = ref<boolean>(false)
       const uploadedFiles = ref<Array<string>>([])
       const uploadError = ref<string>("")
@@ -66,7 +69,8 @@
 
         axios.post(process.env.VUE_APP_API_BASE_URL + '/wp-json/roomwise/v1/upload', formData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'X-WP-Nonce': store.state.user.nonce
           }
         }).then((response: any) => {
           loading.value = false

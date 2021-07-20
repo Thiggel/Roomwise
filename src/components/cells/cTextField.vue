@@ -25,6 +25,12 @@
         @input="validate($event.target.value)"
         v-if="type === 'textarea'"
     ></textarea>
+    <a
+        class="forgot-password"
+        href="https://roomwise.nl/my-account/lost-password/"
+        target="_blank"
+        v-if="type === 'password'"
+    >{{ $t('forgotPassword') }}</a>
     <span class="error-message" v-if="showValidationStatus && !validationStatus">{{ errorMessage }}</span>
   </div>
 </template>
@@ -142,6 +148,11 @@ export default defineComponent({
       }
     }
 
+    .forgot-password {
+      font-size: 0.75rem;
+      color: var(--color-black);
+    }
+
     span.error-message {
       font-size: 0.75rem;
       color: var(--color-darkgrey);
@@ -187,6 +198,19 @@ export default defineComponent({
       }
     }
 
+    &:after {
+      content: "\f00c";
+      font-family: 'Line Awesome Free';
+      font-weight: 900;
+      color: var(--color-green);
+      font-size: 32px;
+      position: absolute;
+      right: 24px;
+      bottom: 30px;
+      visibility: hidden;
+      z-index: -1;
+    }
+
     &.valid {
       position: relative;
 
@@ -196,14 +220,8 @@ export default defineComponent({
       }
 
       &:after {
-        content: "\f00c";
-        font-family: 'Line Awesome Free';
-        font-weight: 900;
-        color: var(--color-green);
-        font-size: 32px;
-        position: absolute;
-        right: 24px;
-        bottom: 30px;
+        visibility: visible;
+        z-index: 1;
       }
 
       &.textarea:after {
