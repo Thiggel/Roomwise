@@ -64,7 +64,6 @@
 
       <c-text-field
           :title="$t('oneTimeAgencyFees')"
-          placeholder="€"
           :placeholderRight="true"
           :required="true"
           key="oneTimeAgencyFees"
@@ -72,7 +71,7 @@
           @update:model-value="$emit('input')"
           @validate="validate($event, 'oneTimeAgencyFees')"
           :showValidationStatus="showValidationStatus"
-          regexp="^[€]?[ ]?\d{1,5}(?:[.,]\d{3})*(?:[.,]\d{2})?[ ]?[€]?$"
+          regexp="^[A-Za-z0-9€ ]*$"
       ></c-text-field>
     </div>
 

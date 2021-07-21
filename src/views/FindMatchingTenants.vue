@@ -41,7 +41,7 @@
 
       <div class="stepper-menu">
         <c-button
-            class="big"
+            class="big send-invitation-button"
             v-if="currentStep === steps.length-1 && potentialTenants.length"
             @click="isModalOpen = true"
             :loading="stepLoading"
@@ -148,6 +148,9 @@
       }
 
       function nextStep(): void {
+        if(stepLoading.value)
+          return
+
         infoMessage.value = ''
 
         if(validateForm()) {
@@ -243,14 +246,22 @@
       right: 0;
       display: flex;
       flex-direction: row-reverse;
-      align-items: center;
+      align-items: stretch;
       justify-content: stretch;
       padding: 20px 0;
 
-      button:first-child + .secondary {
-        margin-right: 16px;
-        width: 25%;
-        min-width: 80px;
+      button:first-child {
+        width: 100%;
+
+        & + .secondary {
+          margin-right: 16px;
+          width: 25%;
+          min-width: 80px;
+        }
+      }
+
+      .send-invitation-button.big {
+        font-size: 0.75rem;
       }
     }
   }

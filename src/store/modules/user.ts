@@ -104,7 +104,7 @@ export default {
                         'disagree',
                         'completelyDisagree'
                     ],
-                    answers: []
+                    answers:  []
                 },
                 {
                     text: 'valueCommunication',

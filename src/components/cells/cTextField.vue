@@ -139,7 +139,7 @@ export default defineComponent({
     margin-bottom: 20px;
 
     &.short {
-      max-width: 25%;
+      max-width: 35%;
     }
 
     label {

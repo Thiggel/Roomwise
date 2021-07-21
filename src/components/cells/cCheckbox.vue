@@ -48,7 +48,7 @@
 
     input {
       appearance: none;
-      margin-right: 16px;
+      margin-right: 8px;
       border: 1px solid var(--color-darkgrey);
       width: 24px;
       height: 24px;
@@ -56,6 +56,10 @@
       background: var(--color-white);
       border-radius: var(--border-radius-mini);
       cursor: pointer;
+
+      @include desktop {
+        margin-right: 16px;
+      }
 
       &:hover {
          background: var(--color-lightgrey);

@@ -1,30 +1,28 @@
 <template>
   <a-stepper-step>
-    <div class="stepper-row">
-      <c-text-field
-          :title="$t('extraCosts')"
-          placeholder="€"
-          :placeholderRight="true"
-          key="propertyExtraCosts"
-          v-model="propertyExtraCosts"
-          @update:model-value="$emit('input')"
-          @validate="validate($event, 'propertyExtraCosts')"
-          :showValidationStatus="showValidationStatus"
-          regexp="^[€]?[ ]?\d{1,5}(?:[.,]\d{3})*(?:[.,]\d{2})?[ ]?[€]?$"
-      ></c-text-field>
+    <c-text-field
+        :title="$t('extraCosts')"
+        placeholder="€"
+        :placeholderRight="true"
+        key="propertyExtraCosts"
+        v-model="propertyExtraCosts"
+        @update:model-value="$emit('input')"
+        @validate="validate($event, 'propertyExtraCosts')"
+        :showValidationStatus="showValidationStatus"
+        regexp="^[€]?[ ]?\d{1,5}(?:[.,]\d{3})*(?:[.,]\d{2})?[ ]?[€]?$"
+    ></c-text-field>
 
-      <c-text-field
-          :title="$t('deposit')"
-          placeholder="€"
-          :placeholderRight="true"
-          key="propertyDeposit"
-          v-model="propertyDeposit"
-          @update:model-value="$emit('input')"
-          @validate="validate($event, 'propertyDeposit')"
-          :showValidationStatus="showValidationStatus"
-          regexp="^[€]?[ ]?\d{1,5}(?:[.,]\d{3})*(?:[.,]\d{2})?[ ]?[€]?$"
-      ></c-text-field>
-    </div>
+    <c-text-field
+        :title="$t('deposit')"
+        placeholder="€"
+        :placeholderRight="true"
+        key="propertyDeposit"
+        v-model="propertyDeposit"
+        @update:model-value="$emit('input')"
+        @validate="validate($event, 'propertyDeposit')"
+        :showValidationStatus="showValidationStatus"
+        regexp="^[€]?[ ]?\d{1,5}(?:[.,]\d{3})*(?:[.,]\d{2})?[ ]?[€]?$"
+    ></c-text-field>
 
     <c-text-field
         :title="$t('describeTheProperty')"

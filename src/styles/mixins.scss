@@ -1,3 +1,10 @@
+$breakpoints: (
+  'tiny': 540px,
+  'small':  767px,
+  'medium': 992px,
+  'large':  1200px
+) !default;
+
 @mixin respond-to($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
     @media (min-width: map-get($breakpoints, $breakpoint)) {

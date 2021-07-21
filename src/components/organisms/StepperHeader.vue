@@ -71,6 +71,10 @@
       width: 100%;
       position: relative;
 
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+
       .step-item-content {
         display: flex;
         flex-direction: column;
@@ -81,19 +85,26 @@
           background: var(--color-white);
           border: 1px solid var(--color-green);
           font-family: var(--font-primary);
-          font-size: 0.75rem;
+          font-size: 0.5rem;
           font-weight: var(--font-weight-light);
           color: var(--color-green);
           z-index: 2;
-          padding: 0.5rem;
+          padding: 0.25rem;
           border-radius: 50%;
-          min-width: 30px;
-          min-height: 30px;
+          min-width: 15px;
+          min-height: 15px;
           display: flex;
           align-items: center;
           justify-content: center;
           margin-bottom: 12px;
           transition: all 0.35s ease;
+
+          @include desktop {
+            min-width: 30px;
+            min-height: 30px;
+            font-size: 0.75rem;
+            padding: 0.5rem;
+          }
         }
 
         .step-title {
@@ -112,13 +123,17 @@
         width: 100%;
         z-index: 1;
         position: absolute;
-        top: 28px;
-        left: -50%;
+        top: 13px;
+        left: calc(-50% - 10px);
 
         &.green {
           border-color: var(--color-green);
           width: 0%;
           transition: all 0.35s ease;
+        }
+
+        @include desktop {
+          top: 28px;
         }
       }
 

@@ -19,7 +19,7 @@
   // font
   --font-primary: 'Montserrat', 'Open Sans', 'Helvetica Neue', 'Arial', sans-serif;
   --font-icon: 'Line Awesome';
-  --font-size-root: 20px;
+  --font-size-root: 14px;
   --font-weight-light: 400;
   --font-weight-lighter: 300;
 
@@ -31,9 +31,8 @@
   --border-radius-mini: 2px;
 }
 
-$breakpoints: (
-  'tiny': 540px,
-  'small':  767px,
-  'medium': 992px,
-  'large':  1200px
-) !default;
+@include desktop {
+  :root {
+    --font-size-root: 20px;
+  }
+}

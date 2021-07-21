@@ -63,31 +63,32 @@
   .user-list-item {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     background: var(--color-light-lightgrey);
     border-radius: var(--border-radius-standard);
     margin-bottom: 20px;
     padding: 16px;
 
     img {
-      width: 100px;
-      height: 100px;
-      min-width: 100px;
+      width: 45px;
+      height: 45px;
+      min-width: 45px;
       object-fit: cover;
       border-radius: var(--infinite);
-    }
 
-    .information,
-    .actions {
-      display: flex;
-      flex-direction: column;
+      @include desktop {
+        width: 100px;
+        height: 100px;
+        min-width: 100px;
+      }
     }
 
     .information {
+      display: flex;
       margin: 0 16px;
-      width: 100%;
+      flex-direction: column;
 
       .name {
         color: var(--color-black);
@@ -99,7 +100,28 @@
     }
 
     .actions {
+      display: flex;
       width: 100%;
+      align-items: center;
+
+      button,
+      label {
+        font-size: 0.6rem;
+
+        @include desktop {
+          font-size: 0.75rem;
+        }
+      }
+
+      a.button {
+        padding: 0.5rem 2rem;
+        margin-right: 16px;
+        margin-top: 16px;
+
+        @include desktop {
+          padding: 0.75rem 2rem;
+        }
+      }
     }
   }
 </style>

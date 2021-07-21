@@ -1,7 +1,7 @@
 <template>
   <div class="locale-changer">
     <c-button
-        class="secondary"
+        class="link no-margin"
         v-for="(lang, i) in langs"
         :key="`Lang${i}`"
         @click="$i18n.locale = lang; setLanguagePreference(lang)"
@@ -34,3 +34,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  button.link.no-margin {
+    margin-bottom: 0;
+    padding: 0.75rem 12px;
+  }
+</style>

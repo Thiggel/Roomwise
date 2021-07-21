@@ -66,7 +66,6 @@
     &.big {
       border-radius: var(--border-radius-standard);
       font-size: 1rem;
-      width: 100%;
     }
 
     &.text-icon {
@@ -92,8 +91,10 @@
       margin-bottom: 28px;
     }
 
-    &:not(.disabled):hover {
-      opacity: 0.75;
+    @include desktop {
+      &:not(.disabled):hover {
+        opacity: 0.75;
+      }
     }
   }
 </style>

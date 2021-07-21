@@ -170,7 +170,7 @@ import {ref, defineComponent, computed} from 'vue'
         font-size: 50px;
         color: var(--color-lightgrey);
         transition: 0.25s ease;
-        z-index: 1;
+        z-index: 0;
 
         &.la-spinner {
           animation: spin 1s linear infinite;

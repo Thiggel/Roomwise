@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { useStore } from 'vuex'
-import {computed, reactive} from 'vue'
+import {computed, onMounted, reactive} from 'vue'
 import CTextField from "@/components/cells/cTextField.vue"
 import AStepperStep from "@/components/atoms/aStepperStep.vue"
 import CUpload from "@/components/cells/cUpload.vue"
@@ -67,6 +67,10 @@ export default {
       validationStatus[key] = event
       context.emit('validate', Object.values(validationStatus).every(item => item))
     }
+
+    onMounted((): void => {
+      context.emit('validate', propertyRoomSize.value.length && propertyImages.value.length)
+    })
 
     return { propertyRoomSize, propertyImages, validationStatus, validate }
   }
