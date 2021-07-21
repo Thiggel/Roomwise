@@ -89,5 +89,8 @@ export default {
   userCreated: 'We\'ve sent you a verification email that you can use to set your password for future searches.',
   oneTimeAgencyFees: 'One-time agency fees',
   acceptDataDeclaration: 'I have read and agree to the <a href="https://roomwise.nl/data-declaration/">Privacy Policy</a>',
-  jumpBackToStart: 'Change preferences'
+  jumpBackToStart: 'Change preferences',
+  searchesLeft: 'You have {searchesLeft} more free tenant picks.',
+  searchesLeftTwo: 'If you need more searches, you can <a href="mailto:info@roomwise.nl">upgrade your account or partner with us</a>.',
+  noSearchesLeft: 'Unfortunately, you\'ve used up all your free searches. Please contact us to <a href="mailto:info@roomwise.nl">upgrade your plan</a>.'
 }

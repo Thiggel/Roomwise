@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import {ref, defineComponent, computed} from 'vue'
+import {ref, defineComponent} from 'vue'
   import { useStore } from 'vuex'
   import axios from 'axios'
   import { Files } from '../../types'

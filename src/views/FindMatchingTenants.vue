@@ -159,9 +159,7 @@
             loginOrRegister()
           } else if(currentStep.value > 0 && currentStep.value < 10) {
             errorMessage.value = ''
-            if(currentStep.value >= 3) {
-              store.commit('alterProperty', { status: 'publish' })
-            }
+
             stepLoading.value = true
 
             if(store.state.user.property.createListing)

@@ -12,6 +12,7 @@ export default {
         email: "",
         password: "",
         nonce: "",
+        searchesLeft: undefined,
 
         property: {
             createListing: true,
@@ -226,7 +227,8 @@ export default {
                     city: context.state.property.city,
                     price: parseFloat(context.state.property.pricePerMonth),
                     date: context.state.property.moveInDate
-                }
+                },
+                email: context.state.email
             }, {
                 headers: {
                     'X-WP-Nonce': context.state.nonce
@@ -235,6 +237,7 @@ export default {
                 .then((response: any): void => {
                     if(response.data.success) {
                         context.state.property.potentialTenants = response.data.tenants
+                        context.state.searchesLeft = response.data.searchesLeft
                     } else {
                         context.commit('changeErrorMessage', 'thereWasAnError')
                     }

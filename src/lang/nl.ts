@@ -90,4 +90,7 @@ export default {
     completelyDisagree: 'Helemaal niet mee eens',
     disagree: 'Oneens',
     ratherDisagree: 'Enigszins oneens',
+    searchesLeft: 'Je hebt {searchesLeft} meer gratis huurderskeuzes.',
+    searchesLeftTwo: 'Als u meer zoekopdrachten nodig heeft, kunt u <a href="mailto:info@roomwise.nl">uw account upgraden of met ons samenwerken</a>.',
+    noSearchesLeft: 'Helaas heeft u al uw gratis zoekopdrachten opgebruikt. Neem contact met ons op om je <a href="mailto:info@roomwise.nl">abonnement te upgraden</a>.'
 }
