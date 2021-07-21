@@ -18,6 +18,7 @@
 import COptionGroup from "@/components/cells/cOptionGroup.vue"
 import useIdealTenant from "@/modules/useIdealTenant"
 import AStepperStep from "@/components/atoms/aStepperStep.vue";
+import {onMounted} from "vue";
 
 export default {
   components: {AStepperStep, COptionGroup},
@@ -38,6 +39,10 @@ export default {
       setAnswer(key, event)
       context.emit('validate', idealTenant.value[5].answers && idealTenant.value[5].answers.length)
     }
+
+    onMounted((): void => {
+      context.emit('validate', idealTenant.value[5].answers && idealTenant.value[5].answers.length)
+    })
 
     return { idealTenant, getAnswer, setAnswerAndValidate }
   }

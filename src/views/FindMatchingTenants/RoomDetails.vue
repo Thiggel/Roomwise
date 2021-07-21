@@ -44,7 +44,7 @@
           @update:model-value="$emit('input')"
           @validate="validate($event, 'propertyHouseNumber')"
           :showValidationStatus="showValidationStatus"
-          regexp="^[0-9]+$"
+          regexp="^[0-9A-Za-z]+$"
       ></c-text-field>
     </div>
 

@@ -59,7 +59,7 @@ export default {
     })
 
     const validationStatus: any = reactive<object>({
-      //propertyImages: false,
+      propertyImages: false,
       propertyRoomSize: false,
     })
 

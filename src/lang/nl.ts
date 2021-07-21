@@ -82,5 +82,6 @@ export default {
     forgotPassword: 'Wachtwoord vergeten',
     userCreated: 'We hebben u een verificatie-e-mail gestuurd die u kunt gebruiken om uw wachtwoord in te stellen voor toekomstige zoekopdrachten.',
     oneTimeAgencyFees: 'Eenmalige courtage',
-    acceptDataDeclaration: 'Ik heb het <a href="https://roomwise.nl/data-declaration/">Privacybeleid</a> gelezen en ga ermee akkoord'
+    acceptDataDeclaration: 'Ik heb het <a href="https://roomwise.nl/data-declaration/">Privacybeleid</a> gelezen en ga ermee akkoord',
+    jumpBackToStart: 'Voorkeuren wijzigen'
 }

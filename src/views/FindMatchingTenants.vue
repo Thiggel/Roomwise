@@ -42,10 +42,17 @@
       <div class="stepper-menu">
         <c-button
             class="big"
-            v-if="currentStep === steps.length-1"
+            v-if="currentStep === steps.length-1 && potentialTenants.length"
             @click="isModalOpen = true"
             :loading="stepLoading"
         >{{ $t('sendInvitationToCheckedTenants') }}</c-button>
+
+        <c-button
+            class="big"
+            v-if="currentStep === steps.length-1 && !potentialTenants.length"
+            @click="currentStep = 1"
+            :loading="stepLoading"
+        >{{ $t('jumpBackToStart') }}</c-button>
 
         <c-button
             class="big"
@@ -176,6 +183,8 @@
         isModalOpen.value = false
       }
 
+      const potentialTenants = computed(() => store.state.user.property.potentialTenants)
+
       onMounted(() => {
         window.addEventListener('keyup', (event: KeyboardEvent) => {
           const KEYCODE_ENTER = 13
@@ -201,7 +210,8 @@
         nextStep,
         closeModalWindow,
         stepLoading,
-        infoMessage
+        infoMessage,
+        potentialTenants
       }
     }
   }

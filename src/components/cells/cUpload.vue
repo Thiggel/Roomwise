@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-  import { ref, defineComponent } from 'vue'
+import {ref, defineComponent, computed} from 'vue'
   import { useStore } from 'vuex'
   import axios from 'axios'
   import { Files } from '../../types'
@@ -47,14 +47,19 @@
       title: String,
       required: Boolean,
       key: String,
-      showValidationStatus: Boolean
+      showValidationStatus: Boolean,
+      modelValue: Array
     },
+
+    emits: [ 'update:modelValue' ],
 
     setup(props: any, context: any) {
       const store = useStore()
 
       const loading = ref<boolean>(false)
-      const uploadedFiles = ref<Array<string>>([])
+
+      const uploadedFiles = ref<Array<string>>(props.modelValue)
+
       const uploadError = ref<string>("")
       const isHovered = ref<boolean>(false)
 

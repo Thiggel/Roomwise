@@ -7,10 +7,10 @@
         <input
             :type="type"
             :value="option"
-            :id="'option-' + option + key"
+            :id="'option-' + option + key + text"
             v-model="answers"
         >
-        <label :for="'option-' + option + key" v-html="$t(option)"></label>
+        <label :for="'option-' + option + key + text" v-html="$t(option)"></label>
       </div>
     </div>
 
