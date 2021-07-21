@@ -35,10 +35,14 @@ export default {
 
     const searchesLeftText = computed(() => {
       if(parseInt(searchesLeft.value) === 0) {
-        return t('noSearchesLeft')
+        return t('noSearchesLeft') +
+            " <a href=\"mailto:info@roomwise.nl\">" + t('noSearchesLeftTwo') +
+            "</a>";
       }
 
-      return t('searchesLeft', { searchesLeft: searchesLeft.value }) + " " + t('searchesLeftTwo');
+      return t('searchesLeft', { searchesLeft: searchesLeft.value }) +
+          " <a href=\"mailto:info@roomwise.nl\">" + t('searchesLeftTwo') +
+          "</a>";
     })
 
     const potentialTenants = computed({
@@ -51,7 +55,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .searches-left {
   text-align: center;
   width: calc(100% - 48px);

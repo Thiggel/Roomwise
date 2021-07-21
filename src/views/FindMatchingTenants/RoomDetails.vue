@@ -12,6 +12,7 @@
     ></c-text-field>
 
     <c-text-field
+        type="select"
         :title="$t('city')"
         placeholder="Amsterdam"
         :required="true"

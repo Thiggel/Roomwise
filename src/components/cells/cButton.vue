@@ -66,6 +66,7 @@
     &.big {
       border-radius: var(--border-radius-standard);
       font-size: 1rem;
+      width: 100%;
     }
 
     &.text-icon {

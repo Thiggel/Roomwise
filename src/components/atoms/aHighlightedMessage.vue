@@ -40,6 +40,7 @@ export default defineComponent({
 
     &.success {
       background: var(--color-green);
+      color: var(--color-white);
 
       &:before {
         color: var(--color-white);
@@ -48,6 +49,7 @@ export default defineComponent({
 
     &.error {
       background: var(--color-red);
+      color: var(--color-white);
 
       &:before {
         color: var(--color-white);

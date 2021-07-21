@@ -4,6 +4,27 @@
       {{ title }}<i v-if="required" class="required">*</i>
     </label>
 
+    <select
+      class="text-field"
+      :class="{placeholderRight: placeholderRight, red: showValidationStatus && !validationStatus, valid: validationStatus}"
+      v-if="type === 'select'"
+      :value="modelValue"
+      @change="validate($event.target.value)"
+      :name="key"
+      :placeholder="placeholder"
+      :required="required"
+    >
+      <option value="Amsterdam">Amsterdam</option>
+      <option value="Groningen">Groningen</option>
+      <option value="Den Haag">Den Haag</option>
+      <option value="Enschede">Enschede</option>
+      <option value="Leeuwarden">Leeuwarden</option>
+      <option value="Maastricht">Maastricht</option>
+      <option value="Nijmegen">Nijmegen</option>
+      <option value="Rotterdam">Rotterdam</option>
+      <option value="Utrecht">Utrecht</option>
+      <option value="Zwolle">Zwolle</option>
+    </select>
     <input
         class="text-field"
         :class="{placeholderRight: placeholderRight, red: showValidationStatus && !validationStatus, valid: validationStatus}"
@@ -198,6 +219,10 @@ export default defineComponent({
       }
     }
 
+    select.text-field {
+      width: 100%;
+    }
+
     &:after {
       content: "\f00c";
       font-family: 'Line Awesome Free';
@@ -217,6 +242,10 @@ export default defineComponent({
       .text-field {
         padding-right: 64px;
         width: calc(100% - 86px);
+      }
+
+      select.text-field {
+        width: 100%;
       }
 
       &:after {

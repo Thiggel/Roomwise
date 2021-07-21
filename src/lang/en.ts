@@ -90,7 +90,8 @@ export default {
   oneTimeAgencyFees: 'One-time agency fees',
   acceptDataDeclaration: 'I have read and agree to the <a href="https://roomwise.nl/data-declaration/">Privacy Policy</a>',
   jumpBackToStart: 'Change preferences',
-  searchesLeft: 'You have {searchesLeft} more free tenant picks.',
-  searchesLeftTwo: 'If you need more searches, you can <a href="mailto:contact@roomwise.nl">upgrade your account or partner with us</a>.',
-  noSearchesLeft: 'Unfortunately, you\'ve used up all your free searches. Please contact us to <a href="mailto:contact@roomwise.nl">upgrade your plan</a>.'
+  searchesLeft: 'You have {searchesLeft} more free tenant picks. If you need more searches, you can',
+  searchesLeftTwo: 'upgrade your account or partner with us.',
+  noSearchesLeft: 'Unfortunately, you\'ve used up all your free searches. Please contact us to',
+  noSearchesLeftTwo: 'upgrade your plan.'
 }
