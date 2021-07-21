@@ -59,5 +59,9 @@ export default {
   background: var(--color-light-yellow);
   margin-bottom: 48px;
   border-radius: var(--border-radius-standard);
+
+  a {
+    color: var(--color-black);
+  }
 }
 </style>
