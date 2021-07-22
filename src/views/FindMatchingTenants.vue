@@ -42,6 +42,7 @@
       <div class="stepper-menu">
         <c-button
             class="big send-invitation-button"
+            :class="{disabled: numSelectedPotentialTenants === 0}"
             v-if="currentStep === steps.length-1 && potentialTenants.length"
             @click="isModalOpen = true"
             :loading="stepLoading"
@@ -185,6 +186,9 @@
       }
 
       const potentialTenants = computed(() => store.state.user.property.potentialTenants)
+      const numSelectedPotentialTenants = computed((): number => store.state.user.property.potentialTenants.reduce(
+          (counter: number, el: any): number => (el?.sendInvitation ? counter+1 : counter), 0
+      ))
 
       onMounted(() => {
         window.addEventListener('keyup', (event: KeyboardEvent) => {
@@ -212,7 +216,8 @@
         closeModalWindow,
         stepLoading,
         infoMessage,
-        potentialTenants
+        potentialTenants,
+        numSelectedPotentialTenants
       }
     }
   }

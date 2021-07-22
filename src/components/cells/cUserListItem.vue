@@ -16,7 +16,7 @@
     </div>
 
     <div class="actions">
-      <c-button type="link" :to="modelValue.profileLink">{{ $t('viewProfile') }}</c-button>
+      <c-button type="link" :to="modelValue.profileLink" target="_blank">{{ $t('viewProfile') }}</c-button>
       <c-checkbox v-model="sendInvitation" :key="modelValue.name">{{ $t('sendInvitation') }}</c-checkbox>
     </div>
   </div>

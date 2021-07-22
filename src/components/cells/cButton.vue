@@ -1,5 +1,5 @@
 <template>
-  <a class="button" :href="to" :class="{loading: loading}" v-if="type === 'link'">
+  <a class="button" :target="target" :href="to" :class="{loading: loading}" v-if="type === 'link'">
     <a-loading-spinner v-if="loading"></a-loading-spinner>
     <slot v-else></slot>
   </a>
@@ -21,6 +21,8 @@
         type: String,
         default: 'button'
       },
+
+      target: String,
 
       to: {
         type: String,

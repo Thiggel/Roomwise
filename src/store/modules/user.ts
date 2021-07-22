@@ -268,10 +268,10 @@ export default {
             }
             })
             .then((response: any) => {
-                if(response.data.success && response.data.postId) {
-                    context.state.property.id = response.data.postId
-                } else {
+                if(response.data.success) {
                     context.commit('changeErrorMessage', 'successSendEmail')
+                } else {
+                    context.commit('changeErrorMessage', 'thereWasAnError')
                 }
             })
         }
