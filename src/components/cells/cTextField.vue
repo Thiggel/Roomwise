@@ -197,6 +197,9 @@ export default defineComponent({
       font-weight: var(--font-weight-light);
       color: var(--color-black);
       resize: none;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
 
       &:focus {
         box-shadow: unset;

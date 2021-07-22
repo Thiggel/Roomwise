@@ -95,7 +95,23 @@
         width: 32px;
         height: 32px;
         min-width: 32px;
+        border-radius: var(--infinite);
         background: var(--color-white);
+        -webkit-appearance: none;
+        appearance: none;
+        -moz-appearance: none;
+        cursor: pointer;
+
+        &:hover {
+          background: var(--color-green);
+          opacity: 0.75;
+          border: transparent;
+        }
+
+        &:checked {
+          background: var(--color-green);
+          border: transparent;
+        }
       }
 
       input[type=checkbox] {
@@ -108,6 +124,9 @@
         background: var(--color-white);
         border-radius: var(--border-radius-mini);
         cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+        -moz-appearance: none;
 
         &:hover {
           background: var(--color-lightgrey);

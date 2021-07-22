@@ -36,12 +36,12 @@ export default {
     const searchesLeftText = computed(() => {
       if(parseInt(searchesLeft.value) === 0) {
         return t('noSearchesLeft') +
-            " <a href=\"mailto:info@roomwise.nl\">" + t('noSearchesLeftTwo') +
+            " <a href=\"mailto:contact@roomwise.nl\">" + t('noSearchesLeftTwo') +
             "</a>";
       }
 
       return t('searchesLeft', { searchesLeft: searchesLeft.value }) +
-          " <a href=\"mailto:info@roomwise.nl\">" + t('searchesLeftTwo') +
+          " <a href=\"mailto:contact@roomwise.nl\">" + t('searchesLeftTwo') +
           "</a>";
     })
 
