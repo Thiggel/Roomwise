@@ -1,7 +1,9 @@
 <template>
   <div class="header">
-    <img alt="Roomwise logo" class="normal" src="../../assets/logo.png">
-    <img alt="Roomwise logo" class="tiny" src="../../assets/logo-small.png">
+    <a class="logo-link" href="https://www.roomwise.nl">
+      <img alt="Roomwise logo" class="normal" src="../../assets/logo.png">
+      <img alt="Roomwise logo" class="tiny" src="../../assets/logo-small.png">
+    </a>
 
     <div class="options">
       <c-locale-changer></c-locale-changer>
@@ -33,9 +35,14 @@
     border-bottom: 1px solid var(--color-lightgrey);
     background: var(--color-white);
 
-    img {
+    > a.logo-link {
       max-height: 36px;
       max-width: 50%;
+    }
+
+    img {
+      max-height: 36px;
+      max-width: 100%;
 
       &.normal {
         display: none;

@@ -52,7 +52,7 @@ export default {
   youngFamilies: 'Young families',
   fullTimeWorkers: 'Full-time workers',
   pensioners: 'Pensioners',
-  isTenantAllowedCraftWork: 'Is the tenant allowed to perform craft work in the room/house <span>(e.g. painting walls, in die wand bohren, replacing furniture)</span>',
+  isTenantAllowedCraftWork: 'Is the tenant allowed to perform craft work in the room/house <span>(e.g. painting walls, drill into the wall)</span>',
   preInstalledFurnitureAllowed: 'pre-installed furniture is allowed to be replaced <span>(if no furniture is pre-installed, tick this box)</span>',
   wallsAllowedPainted: 'walls are allowed to be painted',
   tenantEncouragedFixThemselves: 'the tenant is encouraged to perform fixes to the house by himself/herself',
