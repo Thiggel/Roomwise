@@ -80,7 +80,11 @@
     &.horizontal {
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
+
+      .option {
+        margin-right: 40px;
+      }
     }
 
     .option {

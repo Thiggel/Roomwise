@@ -82,8 +82,7 @@ export default {
                     text: 'canHavePet',
                     options: [
                         'yes',
-                        'no',
-                        'doesntmatter'
+                        'no'
                     ],
                     answers: []
                 },
