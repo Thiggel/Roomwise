@@ -1,5 +1,7 @@
 # roomwise-vue
 
+Side-project for a platform that makes renting easier by matching tenants and landlord or potential flat mates.
+
 ## Project setup
 ```
 yarn install
